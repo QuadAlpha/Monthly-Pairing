@@ -1,4 +1,4 @@
-﻿function Get-RideAlong
+function Get-RideAlong
 {
     Param($StartMonth = 1,$EndMonth = 6, $CSAs)
     $hostcsas = $CSAs
@@ -54,7 +54,7 @@ function Invoke-TryLoop
     {
 	    try 
         {
-		    $obj = $null # Ensures that only the last / successful run is returned
+		$obj = $null # Ensures that only the last / successful run is returned
             $obj = Invoke-Expression -Command $ScriptBlock -ErrorAction Stop
             Write-Host "Command completed successfully after $retrycount retries!" -ForegroundColor Green
             $stoploop = $true
@@ -79,5 +79,4 @@ function Invoke-TryLoop
 }
 
 # Below example runs 10 times inside of Invoke-TryLoop, produces 10 successful CSV outputs, with 99 retries before failure and 0 seconds between retries
-
 # 1..10 | % {$run = $_ ; Invoke-TryLoop -ScriptBlock {Get-RideAlong -CSAs (Get-Content C:\TEMP\CSA_List.txt)} -RetrySeconds 0 -Retries 99 | Export-Csv C:\Temp\CSA_Ride_Along_$run.csv -NoTypeInformation}
